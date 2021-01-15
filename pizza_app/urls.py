@@ -5,7 +5,7 @@ from pizza_app.views import create, view, close, stats
 app_name = 'pizza'
 urlpatterns = [
     path('create/', create, name = 'create'),
-    path('view/', view, name = 'view'),
-    path('close/', close, name = 'close'),
+    path(r'^view/(?P<pizza_order_id>[0-9]+)/', view, name = 'view'), 
+    path(r'^close/(?P<pizza_order_id>[0-9]+)/', close, name = 'close'),
     path('stats/', stats, name = 'stats'),
 ]
