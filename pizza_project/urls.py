@@ -18,12 +18,11 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 
-from pizza_app import urls as pizza_urls
 from pizza_app.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('pizza/', include(pizza_urls, namespace='pizza')),
+    path('pizza/', include('pizza_app.urls', namespace='pizza')),
     path('', index, name = 'index'),
 ]
 
