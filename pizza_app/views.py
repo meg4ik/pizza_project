@@ -64,5 +64,54 @@ def close(request, pizza_order_id):
             return HttpResponse('Does not exist', status_code=404)
     return HttpResponse(status=405)
     
-def stats():
-    pass
+def stats(request):
+    if request.method == 'GET':
+        count = PizzaOrder.objects.count()
+        average_extras = PizzaOrder.objects.all().annotate(
+            extra_count=Count('extra')
+        ).aggregate(result=Avg('extra_count'))
+
+        small_size = PizzaSize.objects.get(
+            size=PizzaSize.SMALL[0]
+        )
+        small_pizzas = PizzaOrder.objects.filter(
+            size=small_size
+        )
+
+        small_pizzas = PizzaOrder.objects.filter(
+            size__size=PizzaSize.SMALL[0],
+        )
+
+        s = PizzaOrder
+
+        today = timezone.now()
+        query = {
+            'date_created__day': today.day,
+            'date_created__month': today.month,
+            'date_created__year': today.year,
+        }
+        today_pizzas = PizzaOrder.objects.filter(
+            **query
+        ).count()
+
+        today_delivered = PizzaOrder.delivered_manager.filter(
+            **query
+        ).count()
+
+        # Try these lines with PostgreSQL:
+        # average_delivery_time = PizzaOrder.objects.filter(
+        #     delivered=True,
+        # ).annotate(
+        #     diff=F('date_delivered') - F('date_created')
+        # ).aggregate(result=Avg('diff'))
+
+        params = {
+            'count': count,
+            'average_extras': average_extras['result'],
+            'today_pizzas': today_pizzas,
+            'today_delivered': today_delivered,
+            'average_delivery_time': 'not available with sqlite',
+        }
+
+        return render(request, 'pizza_app/stats.html', {'params': params})
+    return HttpResponse(status=405)
