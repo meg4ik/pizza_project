@@ -2,29 +2,29 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>{% block title %}{% endblock %}</title>
 
     <link rel="stylesheet" href="{% static 'pizza_app/tacit.min.css' %}" />
     <link rel="stylesheet" href="{% static 'pizza_app/styles.css' %}" />
-</head>
+  </head>
 
+  <body>
+    <p>{{ user }}</p>
+    <p>
+      {% if user.is_anonymous %}
+      <a href="{% url 'pizza_auth:register' %}"> Register </a>
+      {% endif %}
+    </p>
 
-<body>
+    <main>{% block content %} {% endblock %}</main>
 
-
-  <main>
-    {% block content %}
-    {% endblock %}
-  </main>
-
-<nav>
-    {% block nav %}<hr />
-    <span><a href="{% url 'index' %}">Back to main</a></span>
-    {% endblock %}
-</nav>
-
-</body>
-
+    <nav>
+      {% block nav %}
+      <hr />
+      <span><a href="{% url 'index' %}">Back to main</a></span>
+      {% endblock %}
+    </nav>
+  </body>
 </html>

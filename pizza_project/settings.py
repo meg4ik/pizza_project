@@ -40,11 +40,13 @@ INSTALLED_APPS = [
 
     'debug_toolbar',
 
-    'pizza_app'
+    'pizza_app',
+    'pizza_auth_app'
 ]
 
 MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'qinspect.middleware.QueryInspectMiddleware',
 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -103,6 +105,14 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+]
+
+AUTH_USER_MODEL = 'pizza_auth_app.CustomUser'
+LOGIN_URL = '/auth/login'
+LOGIN_REDIRECT_URL = '/pizza/create'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 

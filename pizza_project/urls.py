@@ -22,6 +22,7 @@ from pizza_app.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('auth/', include('pizza_auth_app.urls', namespace='pizza_auth')),
     path('pizza/', include('pizza_app.urls', namespace='pizza')),
     path('', index, name = 'index'),
 ]
