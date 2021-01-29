@@ -40,8 +40,11 @@ INSTALLED_APPS = [
 
     'debug_toolbar',
 
+    'rest_framework',
+
     'pizza_app',
-    'pizza_auth_app'
+    'pizza_auth_app',
+    'rest_api_app',
 ]
 
 MIDDLEWARE = [

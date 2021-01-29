@@ -11,10 +11,11 @@
   </head>
 
   <body>
-    <p>{{ user }}</p>
     <p>
       {% if user.is_anonymous %}
       <a href="{% url 'pizza_auth:register' %}"> Register </a>
+      {% else %}
+      {{ user }}
       {% endif %}
     </p>
 

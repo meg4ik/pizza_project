@@ -25,6 +25,7 @@ urlpatterns = [
     path('auth/', include('pizza_auth_app.urls', namespace='pizza_auth')),
     path('pizza/', include('pizza_app.urls', namespace='pizza')),
     path('', index, name = 'index'),
+    path('api/', include('rest_api_app.urls', namespace='rest_api_app')),
 ]
 
 if settings.DEBUG:
