@@ -16,5 +16,5 @@ router.register(r'users', UserViewSet)
 router.register(r'pizzamenuitem', PizzaMenuItemViewSet)
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
+    path(r'^', include(router.urls)),
 ]
